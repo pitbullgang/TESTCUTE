@@ -9,215 +9,124 @@
 
 <style>
 :root{
-  --pink:#ff7eb9;
-  --hotpink:#ff3cac;
-  --purple:#7b2cff;
-  --dark:#0b0b14;
-  --glass:rgba(255,255,255,.15);
-  --glow:0 0 25px rgba(255,126,185,.8);
+  --pink:#ff7acb;
+  --hotpink:#ff4fd8;
+  --purple:#7b3cff;
+  --bg1:#120016;
+  --bg2:#1b0024;
 }
 
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  cursor:url('https://cur.cursors-4u.net/symbols/sym-1/sym49.cur'),auto!important;
 }
 
 body{
   font-family:'Mali',cursive;
   height:100vh;
   overflow:hidden;
-  background:#000;
-}
-
-/* ---------- BACKGROUND ---------- */
-#bg{
-  position:fixed;
-  inset:0;
-  background:url('cute.png') center/cover no-repeat;
-  filter:brightness(.85) saturate(1.1);
-  z-index:-3;
-}
-
-.bg-gradient{
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at top,rgba(255,126,185,.25),transparent 60%),
-    linear-gradient(180deg,rgba(10,10,20,.2),#000);
-  z-index:-2;
-}
-
-/* ---------- STAR DUST ---------- */
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  opacity:.8;
-  border-radius:50%;
-  animation:twinkle 4s infinite ease-in-out;
-}
-
-@keyframes twinkle{
-  0%,100%{opacity:.2}
-  50%{opacity:1}
-}
-
-/* ---------- CENTER CARD ---------- */
-.center{
-  position:absolute;
-  inset:0;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
+  background:
+    radial-gradient(circle at top, #2a0035, transparent 60%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:#fff;
 }
 
-.card{
+/* ---------- CONTENT ---------- */
+.main{
   text-align:center;
-  padding:70px 90px;
-  border-radius:40px;
-  background:var(--glass);
-  backdrop-filter:blur(18px);
-  border:1px solid rgba(255,255,255,.3);
-  box-shadow:0 0 60px rgba(255,126,185,.35);
   animation:float 6s ease-in-out infinite;
 }
 
 @keyframes float{
   0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-18px)}
+  50%{transform:translateY(-14px)}
 }
 
 /* ---------- TITLE ---------- */
 .title{
   font-family:'Itim',cursive;
-  font-size:clamp(5rem,12vw,9rem);
+  font-size:clamp(4.5rem,12vw,8.5rem);
   color:var(--pink);
   text-shadow:
-    0 0 15px var(--pink),
-    0 0 35px var(--hotpink);
+    0 0 10px var(--pink),
+    0 0 25px var(--hotpink),
+    0 0 50px rgba(255,122,203,.6);
 }
 
+/* ---------- SUBTITLE ---------- */
 .subtitle{
-  margin-top:-20px;
+  margin-top:18px; /* แยกชัด ไม่ทับ */
   font-size:1.1rem;
-  letter-spacing:8px;
-  color:#fff;
+  letter-spacing:6px;
   opacity:.85;
 }
 
 /* ---------- BUTTON ---------- */
 .btn{
   margin-top:60px;
-  padding:18px 60px;
-  border-radius:60px;
+  padding:18px 64px;
+  border-radius:999px;
   border:none;
-  font-size:1.1rem;
+  font-size:1.05rem;
   font-weight:700;
   letter-spacing:3px;
   color:#fff;
   background:linear-gradient(135deg,var(--hotpink),var(--purple));
-  box-shadow:0 0 25px rgba(255,60,172,.8);
-  position:relative;
-  overflow:hidden;
-  transition:.4s;
-}
-
-.btn::before{
-  content:'';
-  position:absolute;
-  inset:-2px;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,.7),transparent);
-  transform:translateX(-100%);
-}
-
-.btn:hover::before{
-  animation:shine 1.2s;
-}
-
-@keyframes shine{
-  to{transform:translateX(100%)}
+  box-shadow:
+    0 0 25px rgba(255,79,216,.8),
+    0 0 60px rgba(123,60,255,.4);
+  cursor:pointer;
+  transition:.4s ease;
 }
 
 .btn:hover{
   transform:scale(1.12);
-  box-shadow:0 0 50px rgba(255,126,185,1);
+  box-shadow:
+    0 0 40px rgba(255,122,203,1),
+    0 0 90px rgba(123,60,255,.7);
 }
 
-/* ---------- FLOATING HEARTS ---------- */
-.heart{
+/* ---------- SPARKLES ---------- */
+.sparkle{
   position:fixed;
-  color:rgba(255,126,185,.7);
-  font-size:18px;
-  animation:fly 6s linear forwards;
+  color:rgba(255,200,255,.8);
+  font-size:12px;
   pointer-events:none;
+  animation:spark 1.2s forwards;
 }
 
-@keyframes fly{
-  from{transform:translateY(100vh) scale(.5);opacity:0}
-  20%{opacity:1}
-  to{transform:translateY(-10vh) scale(1.4);opacity:0}
+@keyframes spark{
+  from{transform:scale(1);opacity:1}
+  to{transform:translateY(30px) scale(0);opacity:0}
 }
 </style>
 </head>
 
 <body>
 
-<div id="bg"></div>
-<div class="bg-gradient"></div>
+<div class="main">
+  <div class="title">Laby</div>
+  <div class="subtitle">STARRY MAGIC WORLD</div>
 
-<div class="center">
-  <div class="card">
-    <div class="title">Laby</div>
-    <div class="subtitle">STARRY MAGIC WORLD</div>
-    <button class="btn" onclick="location.href='person.html'">
-      FRIENDS LIST
-    </button>
-  </div>
+  <button class="btn" onclick="location.href='person.html'">
+    FRIENDS LIST
+  </button>
 </div>
 
 <script>
-/* STAR DUST */
-for(let i=0;i<120;i++){
-  const s=document.createElement('div');
-  s.className='star';
-  s.style.left=Math.random()*100+'vw';
-  s.style.top=Math.random()*100+'vh';
-  s.style.animationDelay=Math.random()*4+'s';
-  document.body.appendChild(s);
-}
-
-/* HEART FLOAT */
-setInterval(()=>{
-  const h=document.createElement('div');
-  h.className='heart';
-  h.innerHTML='♥';
-  h.style.left=Math.random()*100+'vw';
-  h.style.fontSize=Math.random()*20+10+'px';
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},500);
-
-/* MOUSE SPARKLE */
+/* mouse sparkle */
 document.addEventListener('mousemove',e=>{
-  const sp=document.createElement('div');
-  sp.innerHTML='✦';
-  sp.style.position='fixed';
-  sp.style.left=e.clientX+'px';
-  sp.style.top=e.clientY+'px';
-  sp.style.color='#ffd6ff';
-  sp.style.pointerEvents='none';
-  sp.style.fontSize='14px';
-  document.body.appendChild(sp);
-
-  sp.animate([
-    {transform:'scale(1)',opacity:1},
-    {transform:'translateY(30px) scale(0)',opacity:0}
-  ],{duration:800});
-
-  setTimeout(()=>sp.remove(),800);
+  const s=document.createElement('div');
+  s.className='sparkle';
+  s.innerHTML='✦';
+  s.style.left=e.clientX+'px';
+  s.style.top=e.clientY+'px';
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),1200);
 });
 </script>
 
