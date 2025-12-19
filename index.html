@@ -9,10 +9,10 @@
 
 <style>
 :root{
-  --pink:#ff7acb;
+  --pink:#ff86d4;
   --hotpink:#ff4fd8;
-  --purple:#7b3cff;
-  --bg1:#120016;
+  --purple:#8a5bff;
+  --bg1:#100014;
   --bg2:#1b0024;
 }
 
@@ -30,7 +30,7 @@ body{
   justify-content:center;
   align-items:center;
   background:
-    radial-gradient(circle at top, #2a0035, transparent 60%),
+    radial-gradient(circle at top, #350046, transparent 65%),
     linear-gradient(180deg,var(--bg1),var(--bg2));
   color:#fff;
 }
@@ -43,7 +43,7 @@ body{
 
 @keyframes float{
   0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-14px)}
+  50%{transform:translateY(-16px)}
 }
 
 /* ---------- TITLE ---------- */
@@ -52,23 +52,23 @@ body{
   font-size:clamp(4.5rem,12vw,8.5rem);
   color:var(--pink);
   text-shadow:
-    0 0 10px var(--pink),
-    0 0 25px var(--hotpink),
-    0 0 50px rgba(255,122,203,.6);
+    0 0 8px rgba(255,134,212,.9),
+    0 0 22px rgba(255,79,216,.8),
+    0 0 45px rgba(255,134,212,.6);
 }
 
 /* ---------- SUBTITLE ---------- */
 .subtitle{
-  margin-top:18px; /* แยกชัด ไม่ทับ */
-  font-size:1.1rem;
+  margin-top:20px;
+  font-size:1.05rem;
   letter-spacing:6px;
   opacity:.85;
 }
 
 /* ---------- BUTTON ---------- */
 .btn{
-  margin-top:60px;
-  padding:18px 64px;
+  margin-top:64px;
+  padding:18px 66px;
   border-radius:999px;
   border:none;
   font-size:1.05rem;
@@ -77,31 +77,43 @@ body{
   color:#fff;
   background:linear-gradient(135deg,var(--hotpink),var(--purple));
   box-shadow:
-    0 0 25px rgba(255,79,216,.8),
-    0 0 60px rgba(123,60,255,.4);
+    0 10px 35px rgba(255,79,216,.6),
+    inset 0 0 12px rgba(255,255,255,.25);
   cursor:pointer;
-  transition:.4s ease;
+  transition:.35s ease;
 }
 
 .btn:hover{
-  transform:scale(1.12);
+  transform:translateY(-4px) scale(1.08);
   box-shadow:
-    0 0 40px rgba(255,122,203,1),
-    0 0 90px rgba(123,60,255,.7);
+    0 20px 55px rgba(255,122,203,.9),
+    inset 0 0 18px rgba(255,255,255,.4);
+}
+
+.btn:active{
+  transform:scale(.96);
+  box-shadow:
+    0 6px 18px rgba(255,79,216,.6);
 }
 
 /* ---------- SPARKLES ---------- */
 .sparkle{
   position:fixed;
-  color:rgba(255,200,255,.8);
-  font-size:12px;
   pointer-events:none;
-  animation:spark 1.2s forwards;
+  color:rgba(255,210,255,.9);
+  font-size:12px;
+  animation:spark 1.1s ease-out forwards;
 }
 
 @keyframes spark{
-  from{transform:scale(1);opacity:1}
-  to{transform:translateY(30px) scale(0);opacity:0}
+  from{
+    transform:scale(1);
+    opacity:1;
+  }
+  to{
+    transform:translateY(26px) scale(0);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -118,15 +130,18 @@ body{
 </div>
 
 <script>
-/* mouse sparkle */
+/* mouse sparkle (เบาลง ลื่นขึ้น) */
 document.addEventListener('mousemove',e=>{
+  if(Math.random() > 0.7) return;
+
   const s=document.createElement('div');
   s.className='sparkle';
-  s.innerHTML='✦';
+  s.textContent='✦';
   s.style.left=e.clientX+'px';
   s.style.top=e.clientY+'px';
   document.body.appendChild(s);
-  setTimeout(()=>s.remove(),1200);
+
+  setTimeout(()=>s.remove(),1100);
 });
 </script>
 
