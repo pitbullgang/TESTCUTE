@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wong - Cute World</title>
+  <title>Laby - Starry World</title>
   <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --primary-pink: #ff7e82;
+      --star-color: #fff9c4;
       --font-main: 'Mali', cursive;
     }
 
-    /* รีเซ็ตค่าพื้นฐาน */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -22,10 +22,10 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background-color: #2c001e; 
+      background-color: #1a0012;
     }
 
-    /* --- ส่วนที่แก้ไข: ตั้งค่ารูปพื้นหลังให้แสดงผล --- */
+    /* พื้นหลัง Kuromi */
     #bg-image {
       position: fixed;
       top: 0;
@@ -33,48 +33,58 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: -2; /* ดันไปอยู่หลังสุด */
+      z-index: -2;
     }
 
-    /* Overlay จางๆ เพื่อให้ข้อความอ่านง่ายขึ้น */
+    /* เลเยอร์ปรับโทนสีให้นุ่มนวล */
     .overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(44, 0, 30, 0.25); 
-      z-index: -1; /* อยู่เหนือรูปแต่หลังกล่องข้อความ */
+      background: radial-gradient(circle, rgba(0,0,0,0) 20%, rgba(26, 0, 18, 0.4) 100%);
+      z-index: -1;
     }
 
-    /* กล่องกระจกโปร่งใส */
-    .main-container {
+    /* --- ระบบดาวลอย (Stars Animation) --- */
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 5px white);
+      animation: twinkle linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.5); opacity: 1; }
+    }
+
+    /* ส่วนจัดวางเนื้อหา (ไม่มีกรอบแล้ว) */
+    .content-area {
       position: relative;
       z-index: 10;
       text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 50px 60px;
-      border-radius: 40px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
     }
 
-    .wong-title {
+    /* ชื่อ Laby สไตล์นุ่มนิ่มขอบขาว */
+    .laby-title {
       font-family: 'Itim', cursive;
-      font-size: 8rem;
+      font-size: 10rem;
       color: var(--primary-pink);
       position: relative;
       display: inline-block;
-      -webkit-text-stroke: 15px white;
+      -webkit-text-stroke: 18px white;
       paint-order: stroke fill;
-      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
-      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 10px 25px rgba(0,0,0,0.3));
+      animation: float 5s ease-in-out infinite;
     }
 
-    .wong-title::after {
-      content: "Wong";
+    .laby-title::after {
+      content: "Laby";
       position: absolute;
       left: 0;
       top: 0;
@@ -84,34 +94,36 @@
     }
 
     .subtitle {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: white;
-      letter-spacing: 4px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-      margin-top: -15px;
-      margin-bottom: 30px;
+      letter-spacing: 8px;
+      text-shadow: 2px 2px 15px rgba(0,0,0,0.6);
+      margin-top: -30px;
+      margin-bottom: 50px;
       text-transform: uppercase;
     }
 
+    /* ปุ่ม FRIENDS LIST สไตล์ Glowing */
     #memberBtn {
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       color: var(--primary-pink);
       border: none;
-      padding: 15px 45px;
+      padding: 15px 50px;
       border-radius: 50px;
       font-family: var(--font-main);
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 700;
       cursor: pointer;
-      letter-spacing: 2px;
-      transition: 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      letter-spacing: 3px;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
     #memberBtn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 15px 35px rgba(255, 126, 130, 0.4);
+      transform: scale(1.15);
+      background: white;
+      box-shadow: 0 0 30px rgba(255, 126, 130, 0.6);
     }
 
     footer {
@@ -121,26 +133,27 @@
       text-align: center;
       color: white;
       font-size: 10px;
-      opacity: 0.5;
-      letter-spacing: 2px;
+      opacity: 0.6;
+      letter-spacing: 3px;
+      z-index: 10;
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-25px) rotate(1deg); }
     }
   </style>
 </head>
 <body>
 
-  <img src="cute.png" id="bg-image" alt="Background">
+  <img src="cute.png" id="bg-image">
   <div class="overlay"></div>
 
-  <div class="main-container">
-    <div class="title-area">
-      <h1 class="wong-title">Wong</h1>
-      <p class="subtitle">Cute & Lovely World</p>
-    </div>
+  <div id="star-container"></div>
+
+  <div class="content-area">
+    <h1 class="laby-title">Laby</h1>
+    <p class="subtitle">Starry Magic World</p>
 
     <button id="memberBtn" onclick="location.href='person.html'">
       <span>FRIENDS LIST</span>
@@ -150,8 +163,14 @@
   <footer>© DESIGNED BY KEN.</footer>
 
   <script>
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-  </script>
-</body>
-</html>
+    // ระบบสุ่มสร้างดาวลอย
+    function createStars() {
+      const container = document.getElementById('star-container');
+      const count = 40; // จำนวนดาว
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 4 + 1 + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        star.style.left = Math.random() * 100 + 'vw';
