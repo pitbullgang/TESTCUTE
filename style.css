@@ -1,7 +1,8 @@
 :root {
+  /* ปรับโทนสีใหม่ให้เป็นสีแดงอมชมพูน่ารัก */
+  --primary-red: #ff7e82; 
   --text-color: #ffffff;
-  --accent-color: #ffffff;
-  --font: 'Kanit', sans-serif;
+  --font: 'Mali', cursive; /* เปลี่ยนเป็นฟอนต์ที่มีความโค้งมน */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,21 +17,30 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  background-color: #000;
+  background-color: #fff5f5; /* พื้นหลังสีชมพูอ่อนกันรูปโหลดไม่ขึ้น */
 }
 
-#bg-video {
+/* ส่วนแสดงรูปภาพ cute.png แทนวิดีโอ */
+#bg-image {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -2;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  filter: grayscale(100%) brightness(60%);
+  z-index: -2;
+}
+
+/* ใส่ Overlay สีแดงจางๆ เพื่อให้คุมโทนแบบในรูปตัวอย่าง */
+.red-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(220, 50, 50, 0.25); /* สีแดงโปร่งแสง */
+  z-index: -1;
+  pointer-events: none;
 }
 
 #particleCanvas {
@@ -40,6 +50,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: -1;
+  opacity: 0.5; /* ปรับให้จุดจางลงเพื่อความนุ่มนวล */
 }
 
 .center-container {
@@ -47,49 +58,65 @@ body {
   z-index: 10;
 }
 
-/* --- ส่วนที่แก้ไข: เพิ่ม Animation ให้ชื่อ PHAWHA --- */
-.title h2 {
-  font-size: 5.5rem;
+/* --- แก้ไขตัวอักษร Wong ให้หนานุ่มมีขอบ --- */
+.wong-title {
+  font-size: 8rem; /* ปรับขนาดใหญ่ */
   font-weight: 700;
-  letter-spacing: 18px;
-  text-transform: uppercase;
   margin-bottom: 0;
-  background: linear-gradient(to bottom, #fff, #777);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
+  color: var(--primary-red);
+  position: relative;
+  letter-spacing: 5px;
   
-  /* เรียกใช้ Animation */
+  /* สร้างขอบสีขาวหนาๆ */
+  -webkit-text-stroke: 15px white;
+  paint-order: stroke fill;
+  filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+  
   animation: floatTitle 4s ease-in-out infinite;
 }
 
-.title p {
-  font-size: 1.1rem;
-  letter-spacing: 10px;
-  opacity: 0.4;
-  margin-bottom: 50px;
-  text-transform: uppercase;
+/* เลเยอร์ตัวหนังสือสีแดงทับบนขอบขาว */
+.wong-title::after {
+  content: "Wong";
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-text-stroke: 0;
+  color: var(--primary-red);
+  width: 100%;
 }
 
+.subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 5px;
+  opacity: 1;
+  margin-top: -15px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+/* ปุ่มกดสไตล์มนๆ น่ารัก */
 #memberBtn {
-  background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 12px 45px;
-  border-radius: 2px;
+  background: white;
+  color: var(--primary-red);
+  border: 4px solid white;
+  padding: 15px 50px;
+  border-radius: 50px; /* ขอบมนกลม */
   cursor: pointer;
   font-family: var(--font);
-  font-size: 0.85rem;
-  letter-spacing: 3px;
-  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-  position: relative;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 126, 130, 0.4);
 }
 
 #memberBtn:hover {
-  border-color: #fff;
-  letter-spacing: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+  background: var(--primary-red);
+  color: white;
 }
 
 footer {
@@ -97,20 +124,14 @@ footer {
   bottom: 30px;
   width: 100%;
   text-align: center;
-  font-size: 10px;
-  opacity: 0.3;
-  letter-spacing: 4px;
+  font-size: 11px;
+  opacity: 0.6;
+  letter-spacing: 3px;
+  color: white;
 }
 
-/* --- เพิ่ม Keyframes สำหรับการขยับขึ้นลง --- */
+/* Animation ขยับนุ่มๆ */
 @keyframes floatTitle {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px); /* ขยับขึ้น 15px */
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
