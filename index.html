@@ -8,7 +8,6 @@
   <style>
     :root {
       --primary-pink: #ffafbd;
-      --soft-white: rgba(255, 255, 255, 0.9);
       --font-main: 'Mali', cursive;
     }
 
@@ -25,7 +24,7 @@
       background-color: #fce4ec;
     }
 
-    /* พื้นหลัง Kuromi - ตรวจสอบว่าชื่อไฟล์ใน GitHub คือ cute.png */
+    /* พื้นหลัง Kuromi */
     #bg-image {
       position: fixed;
       top: 0;
@@ -36,14 +35,14 @@
       z-index: -2;
     }
 
-    /* ดาวกระจุกตัวที่ขวาบน */
+    /* ดาวกระจายขวาบน */
     #star-field {
       position: fixed;
       top: 0;
       right: 0;
       width: 50%;
       height: 50%;
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
     }
 
@@ -57,16 +56,21 @@
 
     @keyframes twinkle {
       0%, 100% { opacity: 0.1; transform: scale(0.7); }
-      50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 12px white; }
+      50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 10px white; }
     }
 
-    /* ส่วนเนื้อหาหลัก */
+    /* พื้นที่เนื้อหาหลัก - ดึงขึ้นด้านบน */
     .main-content {
       position: relative;
       z-index: 10;
       text-align: center;
-      transform: translateY(-50px); /* ปรับให้ลอยขึ้นพอดีๆ */
-      animation: mainFloat 6s ease-in-out infinite;
+      transform: translateY(-80px); /* ดึงขึ้นมากกว่าเดิมเพื่อหนีปุ่ม */
+    }
+
+    /* ส่วนชื่อ Laby - ปรับระยะห่างด้านล่างใหม่ */
+    .title-wrapper {
+      position: relative;
+      margin-bottom: 25px; /* เพิ่มช่องว่างระหว่างชื่อกับคำบรรยาย */
     }
 
     .laby-title {
@@ -75,9 +79,9 @@
       color: #ff8fa3;
       position: relative;
       display: inline-block;
-      -webkit-text-stroke: 20px white;
+      -webkit-text-stroke: 18px white;
       paint-order: stroke fill;
-      filter: drop-shadow(0 10px 20px rgba(255, 143, 163, 0.4));
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
     }
 
     .laby-title::after {
@@ -90,41 +94,35 @@
       width: 100%;
     }
 
+    /* คำบรรยาย - ปรับระยะห่างให้พ้นจากเส้นขอบของ Laby */
     .subtitle {
       font-size: 1.4rem;
       font-weight: 700;
       color: #7d5a5a;
-      letter-spacing: 8px;
+      letter-spacing: 7px;
       text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);
-      margin-top: -35px;
-      margin-bottom: 60px;
+      margin-top: 15px; /* เพิ่มช่องว่างด้านบน */
+      margin-bottom: 50px;
       text-transform: uppercase;
     }
 
     #memberBtn {
-      background: var(--soft-white);
+      background: rgba(255, 255, 255, 0.9);
       color: #ff8fa3;
       border: 3px solid white;
-      padding: 18px 65px;
+      padding: 16px 60px;
       border-radius: 100px;
       font-family: var(--font-main);
       font-size: 1.2rem;
       font-weight: 700;
       cursor: pointer;
-      letter-spacing: 3px;
-      transition: all 0.4s ease;
-      box-shadow: 0 8px 25px rgba(255, 175, 189, 0.5);
+      transition: 0.3s;
+      box-shadow: 0 8px 20px rgba(255, 175, 189, 0.4);
     }
 
     #memberBtn:hover {
-      transform: scale(1.1) translateY(-5px);
+      transform: scale(1.1);
       background: white;
-      box-shadow: 0 12px 35px rgba(255, 143, 163, 0.7);
-    }
-
-    @keyframes mainFloat {
-      0%, 100% { transform: translateY(-50px); }
-      50% { transform: translateY(-70px); }
     }
   </style>
 </head>
@@ -135,9 +133,12 @@
   <div id="star-field"></div>
 
   <div class="main-content">
-    <h1 class="laby-title">Laby</h1>
-    <p class="subtitle">Starry Magic World</p>
-
+    <div class="title-wrapper">
+      <h1 class="laby-title">Laby</h1>
+    </div>
+    
+    <p class="subtitle">STARRY MAGIC WORLD</p>
+    
     <button id="memberBtn" onclick="location.href='person.html'">
       <span>FRIENDS LIST</span>
     </button>
@@ -146,15 +147,15 @@
   <script>
     function generateStars() {
       const field = document.getElementById('star-field');
-      const starCount = 30; 
+      const starCount = 25; 
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        const size = Math.random() * 5 + 3 + 'px';
+        const size = Math.random() * 4 + 2 + 'px';
         star.style.width = size;
         star.style.height = size;
-        star.style.left = (Math.random() * 50 + 50) + 'vw'; 
-        star.style.top = (Math.random() * 50) + 'vh'; 
+        star.style.left = (Math.random() * 100) + '%'; 
+        star.style.top = (Math.random() * 100) + '%'; 
         star.style.animationDelay = Math.random() * 4 + 's';
         star.style.animationDuration = Math.random() * 3 + 2 + 's';
         field.appendChild(star);
