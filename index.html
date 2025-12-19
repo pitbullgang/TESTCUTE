@@ -1,201 +1,225 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laby - Starry Magic</title>
-  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --primary-pink: #ff8fa3;
-      --soft-purple: #b39ddb;
-      --glass: rgba(255, 255, 255, 0.25);
-      --font-main: 'Mali', cursive;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laby ✦ Starry Magic</title>
 
-    * { margin: 0; padding: 0; box-sizing: border-box; cursor: url('https://cur.cursors-4u.net/symbols/sym-1/sym49.cur'), auto !important; }
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;700&display=swap" rel="stylesheet">
 
-    body {
-      font-family: var(--font-main);
-      height: 100vh;
-      width: 100vw;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      background-color: #1a1a1a; /* กันสีขาวโผล่ระหว่างโหลดรูป */
-    }
+<style>
+:root{
+  --pink:#ff7eb9;
+  --hotpink:#ff3cac;
+  --purple:#7b2cff;
+  --dark:#0b0b14;
+  --glass:rgba(255,255,255,.15);
+  --glow:0 0 25px rgba(255,126,185,.8);
+}
 
-    /* พื้นหลัง Kuromi */
-    #bg-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -2;
-      filter: brightness(0.9); /* ปรับให้ภาพมืดลงนิดนึงเพื่อให้ตัวอักษรเด่น */
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  cursor:url('https://cur.cursors-4u.net/symbols/sym-1/sym49.cur'),auto!important;
+}
 
-    /* Overlay เพิ่มความนุ่ม */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.2) 100%);
-      z-index: -1;
-    }
+body{
+  font-family:'Mali',cursive;
+  height:100vh;
+  overflow:hidden;
+  background:#000;
+}
 
-    /* เนื้อหาหลัก */
-    .main-content {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      animation: mainFloat 4s ease-in-out infinite;
-    }
+/* ---------- BACKGROUND ---------- */
+#bg{
+  position:fixed;
+  inset:0;
+  background:url('cute.png') center/cover no-repeat;
+  filter:brightness(.85) saturate(1.1);
+  z-index:-3;
+}
 
-    .laby-title {
-      font-family: 'Itim', cursive;
-      font-size: clamp(5rem, 15vw, 10rem); /* ปรับขนาดตามหน้าจอ */
-      color: var(--primary-pink);
-      position: relative;
-      display: inline-block;
-      -webkit-text-stroke: 15px #fff;
-      paint-order: stroke fill;
-      filter: drop-shadow(0 10px 15px rgba(255, 143, 163, 0.6));
-      margin-bottom: 0.5rem;
-    }
+.bg-gradient{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top,rgba(255,126,185,.25),transparent 60%),
+    linear-gradient(180deg,rgba(10,10,20,.2),#000);
+  z-index:-2;
+}
 
-    .laby-title::after {
-      content: "Laby";
-      position: absolute;
-      left: 0;
-      top: 0;
-      -webkit-text-stroke: 0;
-      color: var(--primary-pink);
-      width: 100%;
-    }
+/* ---------- STAR DUST ---------- */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  opacity:.8;
+  border-radius:50%;
+  animation:twinkle 4s infinite ease-in-out;
+}
 
-    .subtitle {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 10px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-      margin-top: -20px;
-      margin-bottom: 50px;
-      text-transform: uppercase;
-      opacity: 0.9;
-    }
+@keyframes twinkle{
+  0%,100%{opacity:.2}
+  50%{opacity:1}
+}
 
-    /* ปุ่มสไตล์หรู */
-    #memberBtn {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
-      border: 2px solid rgba(255, 255, 255, 0.5);
-      padding: 15px 50px;
-      border-radius: 50px;
-      font-family: var(--font-main);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    }
+/* ---------- CENTER CARD ---------- */
+.center{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    #memberBtn:hover {
-      transform: scale(1.1);
-      background: white;
-      color: #ff8fa3;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-    }
+.card{
+  text-align:center;
+  padding:70px 90px;
+  border-radius:40px;
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:0 0 60px rgba(255,126,185,.35);
+  animation:float 6s ease-in-out infinite;
+}
 
-    /* เอฟเฟกต์หัวใจลอย */
-    .heart {
-      position: absolute;
-      color: rgba(255, 182, 193, 0.6);
-      font-size: 20px;
-      pointer-events: none;
-      animation: fly 6s linear infinite;
-      z-index: 1;
-    }
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-18px)}
+}
 
-    @keyframes fly {
-      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      20% { opacity: 0.8; }
-      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-    }
+/* ---------- TITLE ---------- */
+.title{
+  font-family:'Itim',cursive;
+  font-size:clamp(5rem,12vw,9rem);
+  color:var(--pink);
+  text-shadow:
+    0 0 15px var(--pink),
+    0 0 35px var(--hotpink);
+}
 
-    @keyframes mainFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
+.subtitle{
+  margin-top:-20px;
+  font-size:1.1rem;
+  letter-spacing:8px;
+  color:#fff;
+  opacity:.85;
+}
 
-  </style>
+/* ---------- BUTTON ---------- */
+.btn{
+  margin-top:60px;
+  padding:18px 60px;
+  border-radius:60px;
+  border:none;
+  font-size:1.1rem;
+  font-weight:700;
+  letter-spacing:3px;
+  color:#fff;
+  background:linear-gradient(135deg,var(--hotpink),var(--purple));
+  box-shadow:0 0 25px rgba(255,60,172,.8);
+  position:relative;
+  overflow:hidden;
+  transition:.4s;
+}
+
+.btn::before{
+  content:'';
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.7),transparent);
+  transform:translateX(-100%);
+}
+
+.btn:hover::before{
+  animation:shine 1.2s;
+}
+
+@keyframes shine{
+  to{transform:translateX(100%)}
+}
+
+.btn:hover{
+  transform:scale(1.12);
+  box-shadow:0 0 50px rgba(255,126,185,1);
+}
+
+/* ---------- FLOATING HEARTS ---------- */
+.heart{
+  position:fixed;
+  color:rgba(255,126,185,.7);
+  font-size:18px;
+  animation:fly 6s linear forwards;
+  pointer-events:none;
+}
+
+@keyframes fly{
+  from{transform:translateY(100vh) scale(.5);opacity:0}
+  20%{opacity:1}
+  to{transform:translateY(-10vh) scale(1.4);opacity:0}
+}
+</style>
 </head>
+
 <body>
 
-  <img src="cute.png" id="bg-image">
-  <div class="overlay"></div>
+<div id="bg"></div>
+<div class="bg-gradient"></div>
 
-  <div class="main-content">
-    <h1 class="laby-title">Laby</h1>
-    <p class="subtitle">Starry Magic World</p>
-
-    <button id="memberBtn" onclick="location.href='person.html'">
+<div class="center">
+  <div class="card">
+    <div class="title">Laby</div>
+    <div class="subtitle">STARRY MAGIC WORLD</div>
+    <button class="btn" onclick="location.href='person.html'">
       FRIENDS LIST
     </button>
   </div>
+</div>
 
-  <script>
-    // สร้างหัวใจลอยๆ
-    function createHearts() {
-      const container = document.body;
-      const heartCount = 15;
-      for (let i = 0; i < heartCount; i++) {
-        setTimeout(() => {
-          const heart = document.createElement('div');
-          heart.className = 'heart';
-          heart.innerHTML = '♥';
-          heart.style.left = Math.random() * 100 + 'vw';
-          heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-          heart.style.animationDuration = Math.random() * 3 + 4 + 's';
-          container.appendChild(heart);
-          
-          // ลบออกเมื่อจบแอนิเมชันเพื่อไม่ให้หนักเครื่อง
-          heart.addEventListener('animationend', () => heart.remove());
-        }, i * 300);
-      }
-    }
+<script>
+/* STAR DUST */
+for(let i=0;i<120;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.left=Math.random()*100+'vw';
+  s.style.top=Math.random()*100+'vh';
+  s.style.animationDelay=Math.random()*4+'s';
+  document.body.appendChild(s);
+}
 
-    // เรียกใช้หัวใจวนไป
-    setInterval(createHearts, 5000);
-    createHearts();
+/* HEART FLOAT */
+setInterval(()=>{
+  const h=document.createElement('div');
+  h.className='heart';
+  h.innerHTML='♥';
+  h.style.left=Math.random()*100+'vw';
+  h.style.fontSize=Math.random()*20+10+'px';
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
 
-    // เอฟเฟกต์ Mouse Sparkle (วิ้งๆ ตามเมาส์)
-    document.addEventListener('mousemove', (e) => {
-      const sparkle = document.createElement('div');
-      sparkle.innerHTML = '✨';
-      sparkle.style.position = 'fixed';
-      sparkle.style.left = e.clientX + 'px';
-      sparkle.style.top = e.clientY + 'px';
-      sparkle.style.pointerEvents = 'none';
-      sparkle.style.fontSize = '15px';
-      sparkle.style.zIndex = '9999';
-      document.body.appendChild(sparkle);
+/* MOUSE SPARKLE */
+document.addEventListener('mousemove',e=>{
+  const sp=document.createElement('div');
+  sp.innerHTML='✦';
+  sp.style.position='fixed';
+  sp.style.left=e.clientX+'px';
+  sp.style.top=e.clientY+'px';
+  sp.style.color='#ffd6ff';
+  sp.style.pointerEvents='none';
+  sp.style.fontSize='14px';
+  document.body.appendChild(sp);
 
-      sparkle.animate([
-        { transform: 'translate(0,0) scale(1)', opacity: 1 },
-        { transform: `translate(${(Math.random()-0.5)*50}px, 50px) scale(0)`, opacity: 0 }
-      ], { duration: 1000 });
+  sp.animate([
+    {transform:'scale(1)',opacity:1},
+    {transform:'translateY(30px) scale(0)',opacity:0}
+  ],{duration:800});
 
-      setTimeout(() => sparkle.remove(), 1000);
-    });
-  </script>
+  setTimeout(()=>sp.remove(),800);
+});
+</script>
+
 </body>
 </html>
