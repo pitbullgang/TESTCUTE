@@ -19,10 +19,10 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background-color: #000; /* เปลี่ยนเป็นสีดำเพื่อให้รูปภาพเด่นขึ้นตอนโหลด */
+      background-color: #330000; /* เปลี่ยนเป็นสีแดงเข้มกันหน้าขาวตอนโหลดรูป */
     }
 
-    /* แก้ไขส่วนรูปภาพพื้นหลัง */
+    /* จัดการรูปพื้นหลัง Comic สีแดงที่คุณส่งมาล่าสุด */
     #bg-image {
       position: fixed;
       top: 0;
@@ -30,22 +30,23 @@
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      z-index: 1; /* ปรับ Layer ให้อยู่ล่างสุด */
+      z-index: 1;
     }
 
+    /* เลเยอร์สีแดงจางๆ เพื่อให้ชื่อ Wong เด่นขึ้น */
     .red-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(139, 0, 0, 0.2); /* เพิ่มสีแดงเข้มโปร่งแสงบางๆ */
+      background: rgba(139, 0, 0, 0.15); 
       z-index: 2;
     }
 
     .center-container { 
       text-align: center; 
-      z-index: 10; /* ให้เนื้อหาอยู่บนสุด */
+      z-index: 10; 
       position: relative;
     }
     
