@@ -7,138 +7,157 @@
   <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary-red: #ff7e82;
-      --font: 'Mali', cursive;
+      --primary-pink: #ff7e82;
+      --soft-white: rgba(255, 255, 255, 0.9);
+      --font-main: 'Mali', cursive;
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     body {
-      font-family: var(--font);
+      font-family: var(--font-main);
       height: 100vh;
+      width: 100vw;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background-color: #fff5f5; /* สีชมพูอ่อนกันหน้าขาวตอนโหลดรูป */
+      background-color: #2c001e; /* สีมืดกันหน้าขาวระหว่างโหลด */
     }
 
-    /* เรียกใช้รูปพื้นหลัง cute.png */
+    /* พื้นหลัง Kuromi */
     #bg-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: 1; /* อยู่ชั้นล่างสุด */
-    }
-
-    /* เลเยอร์สีแดงจางๆ ทับรูปให้ดูละมุน */
-    .red-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(139, 0, 0, 0.2); 
-      z-index: 2; /* อยู่เหนือรูปภาพ */
+      object-fit: cover;
+      z-index: 1;
     }
 
-    .center-container { 
-      text-align: center; 
-      z-index: 10; /* อยู่หน้าสุด */
-      position: relative;
+    /* Overlay ปรับโทนสีให้เข้ากับ Kuromi */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(44, 0, 30, 0.1) 0%, rgba(44, 0, 30, 0.4) 100%);
+      z-index: 2;
+      pointer-events: none;
     }
-    
-    /* ตัวหนังสือ Wong ขอบขาวหนานุ่ม */
+
+    .main-container {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 50px 70px;
+      border-radius: 40px;
+      backdrop-filter: blur(5px); /* เบลอพื้นหลังเล็กน้อยให้ดูหรู */
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    /* สไตล์ Wong ที่คุณชอบ */
     .wong-title {
       font-family: 'Itim', cursive;
-      font-size: 8.5rem;
-      color: var(--primary-red);
+      font-size: 9rem;
+      color: var(--primary-pink);
       position: relative;
-      -webkit-text-stroke: 18px white; 
+      display: inline-block;
+      -webkit-text-stroke: 18px white;
       paint-order: stroke fill;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-      animation: floatTitle 4s ease-in-out infinite;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+      animation: float 4s ease-in-out infinite;
     }
 
     .wong-title::after {
       content: "Wong";
-      position: absolute; left: 0; top: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
       -webkit-text-stroke: 0;
-      color: var(--primary-red);
+      color: var(--primary-pink);
       width: 100%;
     }
 
     .subtitle {
-      font-size: 1.3rem;
-      font-weight: bold;
+      font-size: 1.4rem;
+      font-weight: 700;
       color: white;
-      letter-spacing: 5px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-      margin-top: -30px;
+      letter-spacing: 6px;
+      text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
+      margin-top: -20px;
+      margin-bottom: 40px;
       text-transform: uppercase;
     }
 
+    /* ปุ่ม FRIENDS LIST ออกแบบใหม่ */
     #memberBtn {
-      margin-top: 30px;
-      background: white;
-      color: var(--primary-red);
-      border: 4px solid white;
-      padding: 15px 50px;
-      border-radius: 50px;
+      background: var(--soft-white);
+      color: var(--primary-pink);
+      border: none;
+      padding: 18px 60px;
+      border-radius: 100px;
+      font-family: var(--font-main);
+      font-size: 1.2rem;
+      font-weight: 700;
       cursor: pointer;
-      font-family: var(--font);
-      font-size: 1.1rem;
-      font-weight: bold;
-      transition: 0.3s;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      letter-spacing: 2px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(255, 126, 130, 0.3);
     }
 
-    #memberBtn:hover { 
-      transform: scale(1.1); 
-      background: var(--primary-red); 
-      color: white; 
-    }
-    
-    @keyframes floatTitle {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+    #memberBtn:hover {
+      transform: scale(1.1) translateY(-5px);
+      background: white;
+      box-shadow: 0 15px 40px rgba(255, 126, 130, 0.5);
     }
 
-    footer { 
-      position: fixed; 
-      bottom: 20px; 
-      color: white; 
-      font-size: 10px; 
-      opacity: 0.7; 
-      letter-spacing: 2px; 
+    footer {
+      position: fixed;
+      bottom: 25px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 0.7rem;
+      opacity: 0.6;
+      letter-spacing: 3px;
       z-index: 10;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-20px) rotate(1deg); }
     }
   </style>
 </head>
 <body>
 
-  <img src="cute.png" id="bg-image">
-  <div class="red-overlay"></div>
+  <img src="cute.jpg" id="bg-image" alt="Kuromi Background">
+  <div class="overlay"></div>
 
-  <div class="center-container">
-    <div class="title">
+  <div class="main-container">
+    <div class="title-area">
       <h1 class="wong-title">Wong</h1>
-      <p class="subtitle">CUTE & LOVELY WORLD</p>
+      <p class="subtitle">Cute & Lovely World</p>
     </div>
+
     <button id="memberBtn" onclick="goToPerson()">
       <span>FRIENDS LIST</span>
     </button>
   </div>
 
-  <footer><p>© DESIGNED BY KEN.</p></footer>
+  <footer>© DESIGNED BY KEN.</footer>
 
   <script>
     function goToPerson() {
       sessionStorage.setItem('playMusic', 'true');
       window.location.href = 'person.html';
     }
+    // ป้องกันการก๊อปปี้และ Inspect
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('selectstart', e => e.preventDefault());
   </script>
