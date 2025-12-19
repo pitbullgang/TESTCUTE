@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laby - Starry World</title>
+  <title>Laby - Starry Magic</title>
   <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary-pink: #ffafbd; /* สีชมพูพาสเทลหวานๆ */
-      --soft-white: rgba(255, 255, 255, 0.85);
+      --primary-pink: #ffafbd;
+      --soft-white: rgba(255, 255, 255, 0.9);
       --font-main: 'Mali', cursive;
     }
 
@@ -22,7 +22,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background-color: #fce4ec; /* สีพื้นหลังสำรอง */
+      background-color: #fce4ec;
     }
 
     /* พื้นหลัง Kuromi */
@@ -36,51 +36,60 @@
       z-index: -2;
     }
 
-    /* เลเยอร์ปรับแสงให้นุ่มนวลแบบฟุ้งๆ */
     .soft-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(252, 228, 236, 0.3) 100%);
+      background: radial-gradient(circle at center, rgba(255,255,255,0) 0%, rgba(252, 228, 236, 0.2) 100%);
       z-index: -1;
+    }
+
+    /* --- ดาวกระจุกตัวที่ขวาบน --- */
+    #star-field {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 50%; /* ให้ดาวเน้นกระจายอยู่ฝั่งขวา */
+      height: 50%; /* ให้ดาวเน้นกระจายอยู่ฝั่งบน */
+      z-index: 0;
       pointer-events: none;
     }
 
-    /* --- ระบบดาวระยิบระยับ --- */
     .star {
       position: absolute;
       background: white;
       border-radius: 50%;
       opacity: 0;
-      animation: twinkle 3s infinite ease-in-out;
-      z-index: 0;
+      animation: twinkle 4s infinite ease-in-out;
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.1; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px white; }
+      0%, 100% { opacity: 0.1; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 12px white; }
     }
 
-    /* ส่วนจัดวางเนื้อหา (ไร้กรอบ) */
+    /* ส่วนเนื้อหาหลัก */
     .main-content {
       position: relative;
       z-index: 10;
       text-align: center;
+      /* ขยับเนื้อหาขึ้นด้านบนเพื่อไม่ให้ติดข้างล่าง */
+      transform: translateY(-40px); 
       animation: mainFloat 6s ease-in-out infinite;
     }
 
-    /* ชื่อ Laby สไตล์สติกเกอร์หวานๆ */
     .laby-title {
       font-family: 'Itim', cursive;
-      font-size: 9.5rem;
+      font-size: 10rem;
       color: #ff8fa3;
       position: relative;
       display: inline-block;
-      -webkit-text-stroke: 18px white;
+      /* ขอบขาวหนานุ่ม */
+      -webkit-text-stroke: 20px white;
       paint-order: stroke fill;
-      filter: drop-shadow(0 8px 15px rgba(255, 143, 163, 0.4));
+      filter: drop-shadow(0 10px 20px rgba(255, 143, 163, 0.4));
     }
 
     .laby-title::after {
@@ -97,35 +106,33 @@
       font-size: 1.4rem;
       font-weight: 700;
       color: #7d5a5a;
-      letter-spacing: 6px;
+      letter-spacing: 8px;
       text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);
-      margin-top: -25px;
-      margin-bottom: 45px;
+      margin-top: -35px; /* ดึงคำขึ้นไปชิดชื่อ Laby มากขึ้น */
+      margin-bottom: 60px; /* เว้นระยะห่างจากปุ่ม */
       text-transform: uppercase;
     }
 
-    /* ปุ่ม FRIENDS LIST แบบละมุนเรืองแสง */
     #memberBtn {
       background: var(--soft-white);
       color: #ff8fa3;
-      border: 2px solid white;
-      padding: 16px 55px;
+      border: 3px solid white;
+      padding: 18px 65px;
       border-radius: 100px;
       font-family: var(--font-main);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       cursor: pointer;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       transition: all 0.4s ease;
-      box-shadow: 0 5px 20px rgba(255, 175, 189, 0.4);
-      backdrop-filter: blur(5px);
+      box-shadow: 0 8px 25px rgba(255, 175, 189, 0.5);
+      backdrop-filter: blur(4px);
     }
 
     #memberBtn:hover {
-      transform: scale(1.1) translateY(-3px);
+      transform: scale(1.1) translateY(-5px);
       background: white;
-      box-shadow: 0 10px 30px rgba(255, 143, 163, 0.6);
-      color: #ff5c7c;
+      box-shadow: 0 12px 35px rgba(255, 143, 163, 0.7);
     }
 
     footer {
@@ -134,15 +141,14 @@
       width: 100%;
       text-align: center;
       color: #8d6e63;
-      font-size: 10px;
+      font-size: 11px;
       opacity: 0.6;
-      letter-spacing: 2px;
-      z-index: 10;
+      letter-spacing: 3px;
     }
 
     @keyframes mainFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
+      0%, 100% { transform: translateY(-40px); }
+      50% { transform: translateY(-60px); }
     }
   </style>
 </head>
@@ -165,20 +171,23 @@
   <footer>© DESIGNED BY KEN.</footer>
 
   <script>
-    // ฟังก์ชันสร้างดาวสุ่มตำแหน่งทั่วหน้าจอ
+    // สร้างดาวกระจายที่มุมขวาบน
     function generateStars() {
       const field = document.getElementById('star-field');
-      const starCount = 50;
+      const starCount = 35; 
       for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        const size = Math.random() * 5 + 2 + 'px';
+        const size = Math.random() * 5 + 3 + 'px';
         star.style.width = size;
         star.style.height = size;
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.animationDelay = Math.random() * 3 + 's';
-        star.style.animationDuration = Math.random() * 2 + 2 + 's';
+        
+        // สุ่มให้อยู่โซนขวาบน
+        star.style.left = (Math.random() * 50 + 50) + 'vw'; 
+        star.style.top = (Math.random() * 50) + 'vh'; 
+        
+        star.style.animationDelay = Math.random() * 4 + 's';
+        star.style.animationDuration = Math.random() * 3 + 2 + 's';
         field.appendChild(star);
       }
     }
